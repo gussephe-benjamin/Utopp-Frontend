@@ -45,23 +45,18 @@ export default function Onboarding(): JSX.Element {
   };
 
   const finishOnboarding = async (): Promise<void> => {
-    try {
+  try {
+    console.log(data);
 
-      console.log(data)
+    await updateOnboarding(data);
 
-      const res = await updateOnboarding(data);    
+    navigate("/dashboard", { replace: true });
 
-      if (!res.status || res.status >= 400) {
-        throw new Error("Error al completar onboarding");
-      }
-
-      navigate("/dashboard", { replace: true });
-
-    } catch (error) {
-      console.error(error);
-      alert("Error al completar onboarding");
-    }
-  };
+  } catch (error) {
+    console.error(error);
+    alert("Error al completar onboarding");
+  }
+};
 
   return (
 

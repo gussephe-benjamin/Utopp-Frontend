@@ -6,26 +6,24 @@ import type { OnboardingData } from "../types/OnboardingData";
 export default function FinishOnboarding({ data }: { data: OnboardingData }): JSX.Element {
   const navigate = useNavigate()
 
-  const handleFinish = async () => {
-    try {
+const handleFinish = async () => {
+  try {
+    console.log("DATA", data);
 
-      console.error("DATA", data)
+    const res = await updateOnboarding(data);
+    console.log("RESPONSE:", res);
 
-      const res = await updateOnboarding(data);
-      
-      
-      if (!res.ok) {
-        throw new Error("Error al completar onboarding")
-      }
-
-      // Redirigir al dashboard
-      navigate("/dashboard", { replace: true })
-
-    } catch (error) {
-      console.error(error)
-      alert("Error al completar onboarding")
+    if (res.ok !== true) {
+      throw new Error("Error al completar onboarding 1");
     }
+
+    navigate("/dashboard", { replace: true });
+
+  } catch (error) {
+    console.error("ERROR REAL:", error);
+    alert("Error al completar onboarding 2");
   }
+};
 
   return (
     <div>
